@@ -5,7 +5,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 // use CORS to allow cross origin requests
 var cors = require('cors');
-app.use(cors());
+app.use(cors({
+    origin: '*'
+}));
 app.options('*', cors())
 
 app.use(express.json());
