@@ -1,7 +1,8 @@
 // Express server to add input and returns sum of inputs
 const express = require('express');
 const app = express();
-const port = 3000;
+// use 3000 port unless there exists a preconfigured port
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 

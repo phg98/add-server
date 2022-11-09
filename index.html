@@ -16,9 +16,20 @@
     <button onclick="reset()">Reset</button>
 </body>
 <script>
+    
+    let host = "http://localhost:3000";
+
+    // set host to localhost when running locally
+    if (window.location.hostname === "localhost") {
+        host = "http://localhost:3000";
+    } else {
+        // set host to heroku app when running on heroku
+        host = "https://add-srv.herokuapp.com";
+    }
+
     // add api
     function add(){
-        fetch('http://localhost:3000/add',{
+        fetch(`${host}/add`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,7 +48,7 @@
     }
     // sum api
     function sum(){
-        fetch('http://localhost:3000/sum')
+        fetch(`${host}/sum`)
         .then(res => res.json())
         // bind result to html
         .then(data => 
@@ -47,7 +58,7 @@
     }
     // reset api
     function reset(){
-        fetch('http://localhost:3000/reset')
+        fetch(`${host}/reset`)
         .then(res => res.json())
         // bind result to html
         .then(data => 
