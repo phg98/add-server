@@ -3,7 +3,7 @@
 GET http://121.169.215.212:3000/sum HTTP/1.1
 
 ###
-POST http://121.169.215.212:3000/add HTTP/1.1
+POST http://localhost:3000/add HTTP/1.1
 content-type: application/json
 
 {
@@ -11,12 +11,12 @@ content-type: application/json
 }
 
 ###
-GET http://121.169.215.212:3000/sum HTTP/1.1
+GET http://localhost:3000/sum HTTP/1.1
 
 ###
 
-GET http://121.169.215.212:3000/reset HTTP/1.1
+GET http://localhost:3000/reset HTTP/1.1
 
 ###
-GET http://121.169.215.212:3000/sum HTTP/1.1
+GET http://localhost:3000/sum HTTP/1.1
 
