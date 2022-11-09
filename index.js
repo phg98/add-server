@@ -3,8 +3,11 @@ const express = require('express');
 const app = express();
 // use 3000 port unless there exists a preconfigured port
 const port = process.env.PORT || 3000;
+// use CORS to allow cross origin requests
+const cors = require('cors');
 
 app.use(express.json());
+app.use(cors());
 
 let sum = 0;
 
