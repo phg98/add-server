@@ -11,6 +11,15 @@
 </head>
 
 <body class="text-center">
+    <!-- button on the center -->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-dark btn-sm">Vote!</button>
+            </div>
+        </div>
+    </div>
+
     <div class="border border-primary rounded">
         <!-- display result in big font -->
         <div class="alert alert-primary" role="alert">
@@ -18,7 +27,11 @@
         </div>
         <div>
             <!-- button for add api -->
-            <button type="button" class="btn btn-primary btn-lg" onclick="add()">Add</button>
+            <button type="button" class="btn btn-primary btn-lg" onclick="add()">
+                <!-- add badge with dark background color -->
+
+                Add <span class="badge badge-light bg-dark">+</span>
+            </button>
             <!-- button for reset api -->
             <button type="button" class="btn btn-secondary btn-lg" onclick="reset()">Reset</button>
         </div>
