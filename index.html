@@ -6,21 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add</title>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 
 <body>
-    <!-- display result in big font -->
-    <div class="alert alert-primary" role="alert">
-        <h1 class="result">Click Sum</h1>
-    </div>
-    <div>
-        <!-- button for add api -->
-        <button type="button" class="btn btn-primary btn-lg" onclick="add()">Add</button>
-        <!-- button for reset api -->
-        <button type="button" class="btn btn-secondary btn-lg" onclick="reset()">Reset</button>
+    <div class="border border-primary rounded">
+        <!-- display result in big font -->
+        <div class="alert alert-primary" role="alert">
+            <h1 class="result">Click Sum</h1>
+        </div>
+        <div>
+            <!-- button for add api -->
+            <button type="button" class="btn btn-primary btn-lg" onclick="add()">Add</button>
+            <!-- button for reset api -->
+            <button type="button" class="btn btn-secondary btn-lg" onclick="reset()">Reset</button>
+        </div>
     </div>
 </body>
+
 <script>
 
     let host = "http://localhost:3000";
@@ -60,7 +64,7 @@
             .then(data =>
                 document.querySelector('.result').innerHTML = data
             )
-            // .then(data => console.log(data))
+        // .then(data => console.log(data))
     }
     // reset api
     function reset() {
