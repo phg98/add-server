@@ -14,6 +14,9 @@ app.use(express.json());
 
 let sum = 0;
 
+// make favicon folder public
+app.use(express.static('favicon'));
+
 // Main html page
 app.get('/', (req, res) => {
     console.log(req.body);
