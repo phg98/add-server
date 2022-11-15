@@ -17,6 +17,12 @@ let sum = 0;
 // Main html page
 app.get('/', (req, res) => {
     console.log(req.body);
+    res.sendFile(__dirname + '/index.html');
+});
+
+// Room
+app.get('/room', (req, res) => {
+    console.log(req.body);
     res.sendFile(__dirname + '/room.html');
 });
 
