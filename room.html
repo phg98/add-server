@@ -29,6 +29,12 @@
         <div class="alert alert-primary" role="alert">
             <h1 class="result">Starting...</h1>
         </div>
+
+        <!-- display my score -->
+        <div class="alert alert-primary" role="alert">
+            <h1 class="myScore">Starting...</h1>
+        </div>
+
         <div>
             <!-- button for add api -->
             <button type="button" class="btn btn-primary btn-lg" onclick="add()">
@@ -42,14 +48,19 @@
     </div>
 
     <!-- Bootstrap JavaScript Bundle with Popper -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
 
 </body>
 
 <script>
 
     let host = "http://localhost:3000";
+    let myScore = 0;
 
     // set host to localhost when running locally
     if (window.location.hostname === "localhost") {
@@ -72,30 +83,44 @@
         })
             .then(res => res.json())
             // bind result to html
-            .then(data =>
-                document.querySelector('.result').innerHTML = data
-            )
+            .then(data => {
+                document.querySelector('.result').innerHTML = "Sum : " + data
+                myScore += 1
+                document.querySelector('.myScore').innerHTML = "My : " + myScore
+            })
             .then(data => console.log(data))
 
     }
+
     // sum api
     function sum() {
         fetch(`${host}/sum`)
             .then(res => res.json())
             // bind result to html
             .then(data =>
-                document.querySelector('.result').innerHTML = data
+                document.querySelector('.result').innerHTML = "Sum : " + data
             )
         // .then(data => console.log(data))
     }
-    // reset api
+
+    // reset my score
     function reset() {
-        fetch(`${host}/reset`)
+        fetch(`${host}/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                input: -myScore
+            })
+        })
             .then(res => res.json())
             // bind result to html
-            .then(data =>
-                document.querySelector('.result').innerHTML = data
-            )
+            .then(data => {
+                document.querySelector('.result').innerHTML = "Sum : " + data
+                myScore = 0
+                document.querySelector('.myScore').innerHTML = "My : " + myScore
+            })
             .then(data => console.log(data))
     }
 
@@ -106,6 +131,7 @@
 
     // call sum api when page loads
     sum();
+    document.querySelector('.myScore').innerHTML = "My : " + myScore
 
 </script>
 <!-- place all componets on the center -->
