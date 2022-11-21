@@ -37,13 +37,20 @@
 
         <div>
             <!-- button for add api -->
-            <button type="button" class="btn btn-primary btn-lg" onclick="add()">
+            <button id="plus" type="button" class="btn btn-primary btn-lg" onclick="add()">
                 <!-- add badge with dark background color -->
 
                 Add <span class="badge badge-light bg-dark">+</span>
             </button>
+
+            <!-- button for minus api -->
+            <button id="minus" type="button" class="btn btn-primary btn-lg" onclick="minus()">
+                <!-- minus badge with dark background color -->
+                Minus <span class="badge badge-light bg-dark">-</span>
+            </button>
+
             <!-- button for reset api -->
-            <button type="button" class="btn btn-secondary btn-lg" onclick="reset()">Reset</button>
+            <button id="reset" type="button" class="btn btn-secondary btn-lg" onclick="reset()">Reset</button>
         </div>
     </div>
 
@@ -92,6 +99,44 @@
 
     }
 
+    // minus api
+    function minus() {
+        const blankTime_msec = 300;
+        if (myScore <= 0) {
+            // blink myscore when myScore is 0
+            document.querySelector('.myScore').style.color = "red";
+            setTimeout(function () {
+                document.querySelector('.myScore').style.color = "black";
+            }, blankTime_msec);
+
+            document.querySelector('#minus').classList.add('btn-danger')
+            setTimeout(() => {
+                document.querySelector('#minus').classList.remove('btn-danger')
+            }, blankTime_msec);
+
+            return;
+        }
+
+
+        fetch(`${host}/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                input: -1
+            })
+        })
+            .then(res => res.json())
+            // bind result to html
+            .then(data => {
+                document.querySelector('.result').innerHTML = "Sum : " + data
+                myScore -= 1
+                document.querySelector('.myScore').innerHTML = "My : " + myScore
+            })
+            .then(data => console.log(data))
+    }
+
     // sum api
     function sum() {
         fetch(`${host}/sum`)
@@ -105,6 +150,24 @@
 
     // reset my score
     function reset() {
+        
+        const blankTime_msec = 300;
+        if (myScore <= 0) {
+            // blink myscore when myScore is 0
+            document.querySelector('.myScore').style.color = "red";
+            setTimeout(function () {
+                document.querySelector('.myScore').style.color = "black";
+            }, blankTime_msec);
+
+            // blink reset button when myScore is 0
+            document.querySelector('#reset').classList.add('btn-danger')
+            setTimeout(() => {
+                document.querySelector('#reset').classList.remove('btn-danger')
+            }, blankTime_msec);
+            
+            return;
+        }
+
         fetch(`${host}/add`, {
             method: 'POST',
             headers: {
