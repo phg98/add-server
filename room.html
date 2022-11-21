@@ -30,9 +30,10 @@
             <h1 class="result">Starting...</h1>
         </div>
 
-        <!-- display my score small -->
-        <div class="alert alert-secondary" role="alert">
-            <h5 class="myScore">Starting...</h5>
+        <!-- display my score and max score on same line -->
+
+        <div id="myScore" class="alert alert-secondary" role="alert">
+            <span class="myScore">Starting...</span><span class="maxScore"></span>
         </div>
 
         <div>
@@ -68,6 +69,8 @@
 
     let host = "http://localhost:3000";
     let myScore = 0;
+    const maxScore = 5;
+    const blinkTime_msec = 300;
 
     // set host to localhost when running locally
     if (window.location.hostname === "localhost") {
@@ -79,6 +82,21 @@
 
     // add api
     function add() {
+        // 최대 점수를 넘지 않을 때만 점수를 더한다.
+        if (myScore >= maxScore) {
+            // 최대점수와 같으면 최대 점수 표시 부분을 깜빡이게 한다.
+            document.querySelector('.maxScore').style.color = "red";
+            setTimeout(function () {
+                document.querySelector('.maxScore').style.color = "black";
+            }, blinkTime_msec);
+
+            document.querySelector('#plus').classList.add('btn-danger')
+            setTimeout(() => {
+                document.querySelector('#plus').classList.remove('btn-danger')
+            }, blinkTime_msec);
+
+            return;
+        }
         fetch(`${host}/add`, {
             method: 'POST',
             headers: {
@@ -94,6 +112,7 @@
                 document.querySelector('.result').innerHTML = "Sum : " + data
                 myScore += 1
                 document.querySelector('.myScore').innerHTML = "My : " + myScore
+                return data
             })
             .then(data => console.log(data))
 
@@ -101,18 +120,17 @@
 
     // minus api
     function minus() {
-        const blankTime_msec = 300;
         if (myScore <= 0) {
             // blink myscore when myScore is 0
             document.querySelector('.myScore').style.color = "red";
             setTimeout(function () {
                 document.querySelector('.myScore').style.color = "black";
-            }, blankTime_msec);
+            }, blinkTime_msec);
 
             document.querySelector('#minus').classList.add('btn-danger')
             setTimeout(() => {
                 document.querySelector('#minus').classList.remove('btn-danger')
-            }, blankTime_msec);
+            }, blinkTime_msec);
 
             return;
         }
@@ -133,6 +151,7 @@
                 document.querySelector('.result').innerHTML = "Sum : " + data
                 myScore -= 1
                 document.querySelector('.myScore').innerHTML = "My : " + myScore
+                return data
             })
             .then(data => console.log(data))
     }
@@ -151,19 +170,18 @@
     // reset my score
     function reset() {
         
-        const blankTime_msec = 300;
         if (myScore <= 0) {
             // blink myscore when myScore is 0
             document.querySelector('.myScore').style.color = "red";
             setTimeout(function () {
                 document.querySelector('.myScore').style.color = "black";
-            }, blankTime_msec);
+            }, blinkTime_msec);
 
             // blink reset button when myScore is 0
             document.querySelector('#reset').classList.add('btn-danger')
             setTimeout(() => {
                 document.querySelector('#reset').classList.remove('btn-danger')
-            }, blankTime_msec);
+            }, blinkTime_msec);
             
             return;
         }
@@ -183,6 +201,7 @@
                 document.querySelector('.result').innerHTML = "Sum : " + data
                 myScore = 0
                 document.querySelector('.myScore').innerHTML = "My : " + myScore
+                return data
             })
             .then(data => console.log(data))
     }
@@ -195,6 +214,7 @@
     // call sum api when page loads
     sum();
     document.querySelector('.myScore').innerHTML = "My : " + myScore
+    document.querySelector('.maxScore').innerHTML = " / " + maxScore
 
 </script>
 <!-- place all componets on the center -->
